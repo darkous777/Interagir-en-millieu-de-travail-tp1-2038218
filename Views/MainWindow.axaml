@@ -1,0 +1,113 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TicTacToe.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="560"
+        x:Class="TicTacToe.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Tic Tac Toe"
+        Width="420" Height="560"
+        CanResize="False"
+        Background="#1e1e2e">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <!-- Cell button base style -->
+        <Style Selector="Button.cell">
+            <Setter Property="FontSize" Value="48"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#313244"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style Selector="Button.cell:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#45475a"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="16">
+        <!-- Top bar -->
+        <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
+            <DockPanel>
+                <Button DockPanel.Dock="Left"
+                        Content="{Binding ModeButtonText}"
+                        Command="{Binding ToggleModeCommand}"
+                        FontSize="14"
+                        Padding="12,8"
+                        Background="#585b70"
+                        Foreground="White"
+                        CornerRadius="6"/>
+                <Button DockPanel.Dock="Right"
+                        Name="CloseButton"
+                        Content="X"
+                        Click="CloseButton_Click"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Padding="8,4"
+                        MinWidth="32"
+                        HorizontalContentAlignment="Center"
+                        Background="#f38ba8"
+                        Foreground="White"
+                        CornerRadius="6"/>
+                <TextBlock Text="{Binding StatusMessage}"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           Foreground="#cdd6f4"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </DockPanel>
+        </StackPanel>
+
+        <!-- Bottom bar -->
+        <StackPanel DockPanel.Dock="Bottom" Spacing="10" Margin="0,12,0,0">
+            <!-- Scoreboard -->
+            <Border Background="#313244" CornerRadius="8" Padding="16,10">
+                <Grid ColumnDefinitions="*,*,*">
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="X Wins" FontSize="14" Foreground="#89b4fa" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding ScoreX}" FontSize="24" FontWeight="Bold" Foreground="#89b4fa" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="Draws" FontSize="14" Foreground="#a6adc8" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding ScoreDraw}" FontSize="24" FontWeight="Bold" Foreground="#a6adc8" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock Text="O Wins" FontSize="14" Foreground="#f38ba8" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding ScoreO}" FontSize="24" FontWeight="Bold" Foreground="#f38ba8" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <!-- New Game button -->
+            <Button Content="New Game"
+                    Command="{Binding NewGameCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="0,10"
+                    Background="#585b70"
+                    Foreground="White"
+                    CornerRadius="6"/>
+        </StackPanel>
+
+        <!-- Game grid -->
+        <UniformGrid Rows="3" Columns="3" Margin="0,4">
+            <Button Classes="cell" Content="{Binding Cells[0]}" Command="{Binding CellClickCommand}" CommandParameter="0"/>
+            <Button Classes="cell" Content="{Binding Cells[1]}" Command="{Binding CellClickCommand}" CommandParameter="1"/>
+            <Button Classes="cell" Content="{Binding Cells[2]}" Command="{Binding CellClickCommand}" CommandParameter="2"/>
+            <Button Classes="cell" Content="{Binding Cells[3]}" Command="{Binding CellClickCommand}" CommandParameter="3"/>
+            <Button Classes="cell" Content="{Binding Cells[4]}" Command="{Binding CellClickCommand}" CommandParameter="4"/>
+            <Button Classes="cell" Content="{Binding Cells[5]}" Command="{Binding CellClickCommand}" CommandParameter="5"/>
+            <Button Classes="cell" Content="{Binding Cells[6]}" Command="{Binding CellClickCommand}" CommandParameter="6"/>
+            <Button Classes="cell" Content="{Binding Cells[7]}" Command="{Binding CellClickCommand}" CommandParameter="7"/>
+            <Button Classes="cell" Content="{Binding Cells[8]}" Command="{Binding CellClickCommand}" CommandParameter="8"/>
+        </UniformGrid>
+    </DockPanel>
+</Window>
